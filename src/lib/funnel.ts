@@ -118,8 +118,8 @@ export function resolveDiagnosis(a: Answers): Diagnosis {
   return {
     id: "colecionador-em-potencial",
     title: "Colecionador em Potencial",
-    copy: "Seu ambiente e sua rotina estão acima da média — o que falta é variedade certa e um método de condução. A boa notícia: com as variedades selecionadas do kit e o guia do seu perfil, sua coleção ganha florações em todas as estações.",
-    promise: "Variedades selecionadas para o seu ambiente",
+    copy: "Seu ambiente e sua rotina estão acima da média — o que falta é variedade certa e um método de condução. A boa notícia: com 10 variedades selecionadas e o guia do seu perfil, sua coleção ganha florações em todas as estações.",
+    promise: "10 variedades selecionadas para o seu ambiente",
     cardLabel: "Potencial",
     cardValue: "Colecionador",
     risk: "Sem variedades com épocas de floração diferentes, a coleção fica 'só na folha' na maior parte do ano.",
