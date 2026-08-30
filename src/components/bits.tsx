@@ -230,7 +230,7 @@ export function InterstitialBody({
       )}
       {image && (
         <div className="mt-6 animate-fade-up overflow-hidden rounded-2xl" style={{ animationDelay: "150ms" }}>
-          <img src={image.src} alt={image.alt} className="aspect-[3/2] w-full object-cover" />
+          <img src={image.src} alt={image.alt} loading="lazy" decoding="async" className="aspect-[3/2] w-full object-cover" />
         </div>
       )}
     </div>
