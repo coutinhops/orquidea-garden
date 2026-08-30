@@ -153,7 +153,7 @@ export function Checkout({ d }: { d: Derived }) {
         style={{ paddingTop: "env(safe-area-inset-top)" }}
       >
         <div className="mx-auto flex max-w-md items-center justify-between px-5 py-3">
-          <img src={logo} alt={BRAND} className="h-11 w-auto" />
+          <img src={logo} alt={BRAND} decoding="async" className="h-11 w-auto" />
           <div className="flex items-center gap-2 rounded-full bg-[#A6455E]/10 px-3 py-1.5">
             <span className="relative flex size-2">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#A6455E] opacity-60" />
@@ -176,7 +176,7 @@ export function Checkout({ d }: { d: Derived }) {
             {firstName ? `${firstName}, seu` : "Seu"} Kit da Floração está pronto!
           </h1>
           <div className="mt-6 overflow-hidden rounded-3xl border border-ink/10 bg-white">
-            <img src={kitImg} alt="Kit com mudas de orquídeas" className="w-full object-cover" />
+            <img src={kitImg} alt="Kit com mudas de orquídeas" loading="lazy" decoding="async" className="w-full object-cover" />
             <div className="space-y-3 p-6 text-left">
               {[
                 ["Sua coleção", "0–3 vasos", "Mudas selecionadas"],
