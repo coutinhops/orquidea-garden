@@ -25,9 +25,9 @@ interface Kit {
 }
 
 const KITS: Kit[] = [
-  { id: "5", name: "Kit 5 Mudas · Iniciante", units: 5, from: "R$ 299,90", price: 29.9, priceLabel: "R$ 29,90", installments: "5x de R$ 5,98", perUnit: "R$ 5,98/muda", url: "https://checkout.garden-orquideas.site/vli8kzo" },
-  { id: "10", name: "Kit 10 Mudas · Mix Especial", units: 10, from: "R$ 499,90", price: 49.9, priceLabel: "R$ 49,90", installments: "5x de R$ 9,98", perUnit: "R$ 4,99/muda", url: "https://checkout.garden-orquideas.site/vliz44x", popular: true },
-  { id: "20", name: "Kit 20 Mudas · Estufa Completa", units: 20, from: "R$ 899,90", price: 89.9, priceLabel: "R$ 89,90", installments: "5x de R$ 17,98", perUnit: "R$ 4,50/muda", url: "https://checkout.garden-orquideas.site/vli0zzk" },
+  { id: "5", name: "Kit 5 Mudas · Iniciante", units: 5, from: "R$ 299,90", price: 29.9, priceLabel: "R$ 29,90", installments: "5x de R$ 5,98", perUnit: "R$ 5,98/muda", url: "https://pay.compra-orquidea.site/P5LNZ8DbvnVZaRy" },
+  { id: "10", name: "Kit 10 Mudas · Mix Especial", units: 10, from: "R$ 499,90", price: 49.9, priceLabel: "R$ 49,90", installments: "5x de R$ 9,98", perUnit: "R$ 4,99/muda", url: "https://pay.compra-orquidea.site/521rZJz0vdeZeaX", popular: true },
+  { id: "20", name: "Kit 20 Mudas · Estufa Completa", units: 20, from: "R$ 899,90", price: 89.9, priceLabel: "R$ 89,90", installments: "5x de R$ 17,98", perUnit: "R$ 4,50/muda", url: "https://pay.compra-orquidea.site/nWrxGWan7Dz3654" },
 ];
 
 function goCheckout(kit: Kit) {
