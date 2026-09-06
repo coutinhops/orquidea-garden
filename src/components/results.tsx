@@ -248,24 +248,9 @@ export function KitReadyScreen({ d, onNext }: { d: Derived; onNext: () => void }
 // ─── Raspadinha ──────────────────────────────────────────────────────────────
 
 export function ScratchScreen({ onDone }: { onDone: () => void }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [revealed, setRevealed] = useState(false);
   const [countdown, setCountdown] = useState(4);
-  const scratching = useRef(false);
-
-  useEffect(() => {
-    const cv = canvasRef.current;
-    if (!cv) return;
-    const ctx = cv.getContext("2d");
-    if (!ctx) return;
-    const { width, height } = cv;
-    ctx.fillStyle = "#292524";
-    ctx.fillRect(0, 0, width, height);
-    ctx.fillStyle = "#FAF7F2";
-    ctx.font = "bold 18px Inter, sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText("Raspe aqui 🌸", width / 2, height / 2 + 6);
-  }, []);
+  const [popping, setPopping] = useState(false);
 
   useEffect(() => {
     if (!revealed) return;
@@ -283,37 +268,30 @@ export function ScratchScreen({ onDone }: { onDone: () => void }) {
     return () => clearInterval(id);
   }, [revealed, onDone]);
 
-  const scratch = (e: React.PointerEvent) => {
+  const handleReveal = () => {
     if (revealed) return;
-    const cv = canvasRef.current;
-    const ctx = cv?.getContext("2d");
-    if (!cv || !ctx) return;
-    const rect = cv.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * cv.width;
-    const y = ((e.clientY - rect.top) / rect.height) * cv.height;
-    ctx.globalCompositeOperation = "destination-out";
-    ctx.beginPath();
-    ctx.arc(x, y, 26, 0, Math.PI * 2);
-    ctx.fill();
-
-    const data = ctx.getImageData(0, 0, cv.width, cv.height).data;
-    let clear = 0;
-    for (let i = 3; i < data.length; i += 16 * 4) if (data[i] === 0) clear++;
-    if (clear / (data.length / (16 * 4)) > 0.45) setRevealed(true);
+    setPopping(true);
+    setTimeout(() => {
+      setRevealed(true);
+      setPopping(false);
+    }, 400);
   };
 
   return (
     <Screen className="justify-center">
       <div className="animate-fade-up text-center">
         <h1 className="font-display text-[26px] font-semibold leading-tight text-ink">
-          Raspe para revelar seu presente do Festival!
+          Clique para revelar seu presente do Festival!
         </h1>
         <p className="mt-2 text-[14px] text-ink/55">
           A estufa preparou uma surpresa para celebrar a safra de inverno com você
         </p>
       </div>
 
-      <div className="relative mx-auto mt-8 w-full max-w-[320px] animate-pop-in overflow-hidden rounded-3xl border-2 border-dashed border-terra/50 shadow-[0_20px_50px_-20px_rgba(162,73,192,0.6)]">
+      <div
+        className="relative mx-auto mt-8 w-full max-w-[320px] animate-pop-in overflow-hidden rounded-3xl border-2 border-dashed border-terra/50 shadow-[0_20px_50px_-20px_rgba(162,73,192,0.6)] cursor-pointer select-none"
+        onClick={handleReveal}
+      >
         <div className="flex aspect-[4/3] flex-col items-center justify-center bg-gradient-to-br from-terra-faint to-sage-faint px-6 text-center">
           <p className="font-display text-5xl font-bold text-terra-dark">90%</p>
           <p className="mt-1 text-[15px] font-bold uppercase tracking-wider text-ink">
@@ -324,20 +302,19 @@ export function ScratchScreen({ onDone }: { onDone: () => void }) {
             {PROMO_CODE}
           </div>
         </div>
+
         {!revealed && (
-          <canvas
-            ref={canvasRef}
-            width={320}
-            height={240}
-            className="scratch-cursor absolute inset-0 size-full touch-none"
-            onPointerDown={(e) => {
-              scratching.current = true;
-              (e.target as HTMLElement).setPointerCapture(e.pointerId);
-              scratch(e);
-            }}
-            onPointerMove={(e) => scratching.current && scratch(e)}
-            onPointerUp={() => (scratching.current = false)}
-          />
+          <div
+            className={`absolute inset-0 flex flex-col items-center justify-center bg-stone-800 transition-all duration-500 ${
+              popping ? "scale-110 opacity-0" : "scale-100 opacity-100"
+            }`}
+          >
+            <div className={`text-5xl mb-2 transition-transform duration-300 ${popping ? "scale-125 rotate-12" : ""}`}>
+              🎁
+            </div>
+            <p className="text-[15px] font-bold text-cream">Clique para revelar 🌸</p>
+            <p className="text-[11px] text-stone-400 mt-1">Toque uma vez e descubra sua surpresa</p>
+          </div>
         )}
       </div>
 
@@ -352,7 +329,7 @@ export function ScratchScreen({ onDone }: { onDone: () => void }) {
         </div>
       ) : (
         <p className="mt-6 animate-pulse-soft text-center text-[13px] font-semibold uppercase tracking-widest text-terra">
-          ↓ Use o dedo para raspar ↓
+          👆 Toque no presente para revelar
         </p>
       )}
     </Screen>
