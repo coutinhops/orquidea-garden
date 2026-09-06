@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { PROMO_CODE, track } from "@/lib/funnel";
 import type { Derived } from "@/lib/funnel";
