@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { derive, track } from "@/lib/funnel";
 import type { Answers } from "@/lib/funnel";
 import { CTA, InterstitialBody, ProgressHeader, Screen } from "@/components/bits";
-import { MultiQuestion, SingleQuestion } from "@/components/questions";
+import { SingleQuestion } from "@/components/questions";
 import { AnalyzingLoading, PlanLoading } from "@/components/special";
 import {
   KitReadyScreen,
