@@ -355,11 +355,6 @@ export default function App() {
     case 12:
       return <AnalyzingLoading onDone={next} />;
 
-    // ── 13 · Caminho da primeira floração ───────────────────────────────────
-    case 13:
-      return <BloomTimeline d={d} onNext={next} />;
-
-    // ── 14 · Estufa real (autoridade com fotos reais) ───────────────────────
     case 14:
       return (
         <Screen>
