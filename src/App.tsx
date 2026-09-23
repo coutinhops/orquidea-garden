@@ -2,9 +2,10 @@ import { useEffect, useMemo, useState } from "react";
 import { derive, track } from "@/lib/funnel";
 import type { Answers } from "@/lib/funnel";
 import { CTA, InterstitialBody, ProgressHeader, Screen } from "@/components/bits";
-import { SingleQuestion } from "@/components/questions";
+import { MultiQuestion, SingleQuestion } from "@/components/questions";
 import { AnalyzingLoading, PlanLoading } from "@/components/special";
 import {
+  BloomTimeline,
   KitReadyScreen,
   NameScreen,
   ScratchScreen,
@@ -293,16 +294,17 @@ export default function App() {
       return (
         <>
           {header}
-          <SingleQuestion
-            title="Qual espécie você mais gostaria de ter?"
-            sub="Escolha uma — a estufa monta o mix ideal"
+          <MultiQuestion
+            title="Quais espécies você mais gostaria de ter?"
+            sub="Escolha todas que encantam você — a estufa monta o mix"
             options={[
               { value: "phalaenopsis", label: "Phalaenopsis", desc: "A clássica — floresce 2x ao ano", icon: "🦋" },
               { value: "cattleya", label: "Cattleya", desc: "Rainha das orquídeas — flores perfumadas", icon: "👑" },
               { value: "dendrobium", label: "Dendrobium", desc: "Cascatas de flores delicadas", icon: "🎋" },
               { value: "todas", label: "Mix surpresa da estufa", desc: "Variedades escolhidas para o seu perfil", icon: "🎁" },
             ]}
-            value={answers.species as string}
+            exclusive={["todas"]}
+            value={answers.species as string[]}
             onAnswer={answer("species")}
           />
         </>
@@ -332,7 +334,7 @@ export default function App() {
       return (
         <>
           {header}
-          <SingleQuestion
+          <MultiQuestion
             title="O que mais frustra você no cultivo de plantas?"
             options={[
               { value: "folhas-amarelas", label: "Folhas amarelando do nada", icon: "🟡" },
@@ -342,7 +344,9 @@ export default function App() {
               { value: "floricultura", label: "Flor da loja murcha em semanas", icon: "🏪" },
               { value: "nada", label: "Nenhuma dessas", icon: "😌" },
             ]}
-            value={answers.frustrations as string}
+            exclusive={["nada"]}
+            disclaimer="Seu guia digital inclui um capítulo de solução para cada item selecionado."
+            value={answers.frustrations as string[]}
             onAnswer={answer("frustrations")}
           />
         </>
@@ -352,6 +356,11 @@ export default function App() {
     case 12:
       return <AnalyzingLoading onDone={next} />;
 
+    // ── 13 · Caminho da primeira floração ───────────────────────────────────
+    case 13:
+      return <BloomTimeline d={d} onNext={next} />;
+
+    // ── 14 · Estufa real (autoridade com fotos reais) ───────────────────────
     case 14:
       return (
         <Screen>
