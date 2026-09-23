@@ -5,7 +5,6 @@ import { CTA, InterstitialBody, ProgressHeader, Screen } from "@/components/bits
 import { MultiQuestion, SingleQuestion } from "@/components/questions";
 import { AnalyzingLoading, PlanLoading } from "@/components/special";
 import {
-  BloomTimeline,
   KitReadyScreen,
   NameScreen,
   ScratchScreen,
