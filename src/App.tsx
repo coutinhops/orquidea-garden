@@ -293,17 +293,16 @@ export default function App() {
       return (
         <>
           {header}
-          <MultiQuestion
-            title="Quais espécies você mais gostaria de ter?"
-            sub="Escolha todas que encantam você — a estufa monta o mix"
+          <SingleQuestion
+            title="Qual espécie você mais gostaria de ter?"
+            sub="Escolha uma — a estufa monta o mix ideal"
             options={[
               { value: "phalaenopsis", label: "Phalaenopsis", desc: "A clássica — floresce 2x ao ano", icon: "🦋" },
               { value: "cattleya", label: "Cattleya", desc: "Rainha das orquídeas — flores perfumadas", icon: "👑" },
               { value: "dendrobium", label: "Dendrobium", desc: "Cascatas de flores delicadas", icon: "🎋" },
               { value: "todas", label: "Mix surpresa da estufa", desc: "Variedades escolhidas para o seu perfil", icon: "🎁" },
             ]}
-            exclusive={["todas"]}
-            value={answers.species as string[]}
+            value={answers.species as string}
             onAnswer={answer("species")}
           />
         </>
@@ -333,7 +332,7 @@ export default function App() {
       return (
         <>
           {header}
-          <MultiQuestion
+          <SingleQuestion
             title="O que mais frustra você no cultivo de plantas?"
             options={[
               { value: "folhas-amarelas", label: "Folhas amarelando do nada", icon: "🟡" },
@@ -343,9 +342,7 @@ export default function App() {
               { value: "floricultura", label: "Flor da loja murcha em semanas", icon: "🏪" },
               { value: "nada", label: "Nenhuma dessas", icon: "😌" },
             ]}
-            exclusive={["nada"]}
-            disclaimer="Seu guia digital inclui um capítulo de solução para cada item selecionado."
-            value={answers.frustrations as string[]}
+            value={answers.frustrations as string}
             onAnswer={answer("frustrations")}
           />
         </>
