@@ -25,9 +25,9 @@ interface Kit {
 }
 
 const KITS: Kit[] = [
-  { id: "5", name: "Kit 5 Mudas · Iniciante", units: 5, from: "R$ 299,90", price: 29.9, priceLabel: "R$ 29,90", installments: "5x de R$ 5,98", perUnit: "R$ 5,98/muda", url: "https://pay.orquidea-compras.site/nQ7kZ7D4AzEG0eJ" },
-  { id: "10", name: "Kit 10 Mudas · Mix Especial", units: 10, from: "R$ 499,90", price: 49.9, priceLabel: "R$ 49,90", installments: "5x de R$ 9,98", perUnit: "R$ 4,99/muda", url: "https://pay.orquidea-compras.site/RmA83EQVN5b3PVp", popular: true },
-  { id: "20", name: "Kit 20 Mudas · Estufa Completa", units: 20, from: "R$ 899,90", price: 89.9, priceLabel: "R$ 89,90", installments: "5x de R$ 17,98", perUnit: "R$ 4,50/muda", url: "https://pay.orquidea-compras.site/2wq7Gr45pxV3BAN" },
+  { id: "5", name: "Kit 5 Mudas · Iniciante", units: 5, from: "R$ 299,90", price: 29.9, priceLabel: "R$ 29,90", installments: "5x de R$ 5,98", perUnit: "R$ 5,98/muda", url: "https://compra-orquidea.site/eyJ2IjoxLCJzIjoiZjhhYmIxYWUtNmI1My00MWFiLWI0ZTktZjk1M2M5NDNiNDY0IiwiaXRlbXMiOlt7InAiOiI5MjA5YzQ3Ny0wYmQ3LTRmNTUtOWQ5Yi01MDk3MzY0MzQyZmUiLCJxIjoxfV19" },
+  { id: "10", name: "Kit 10 Mudas · Mix Especial", units: 10, from: "R$ 499,90", price: 49.9, priceLabel: "R$ 49,90", installments: "5x de R$ 9,98", perUnit: "R$ 4,99/muda", url: "https://compra-orquidea.site/eyJ2IjoxLCJzIjoiZjhhYmIxYWUtNmI1My00MWFiLWI0ZTktZjk1M2M5NDNiNDY0IiwiaXRlbXMiOlt7InAiOiIxZDFkNGY2My0xMjlhLTQ1NTctYmQwMC00ODM5NTU2N2Y0YjkiLCJxIjoxfV19", popular: true },
+  { id: "20", name: "Kit 20 Mudas · Estufa Completa", units: 20, from: "R$ 899,90", price: 89.9, priceLabel: "R$ 89,90", installments: "5x de R$ 17,98", perUnit: "R$ 4,50/muda", url: "https://compra-orquidea.site/eyJ2IjoxLCJzIjoiZjhhYmIxYWUtNmI1My00MWFiLWI0ZTktZjk1M2M5NDNiNDY0IiwiaXRlbXMiOlt7InAiOiJlMWYyZmQ3Yy0wYmMwLTRiYmYtYmE4Zi0wNjRkMzRlODQ5NjgiLCJxIjoxfV19" },
 ];
 
 function goCheckout(kit: Kit) {
