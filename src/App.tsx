@@ -33,7 +33,7 @@ const SECTIONS = [
   { name: "Suas preferências", from: 9, to: 11 },
 ];
 
-const LAST_STEP = 18;
+const LAST_STEP = 10;
 
 export default function App() {
   const [step, setStep] = useState(0);
@@ -129,35 +129,6 @@ export default function App() {
     // ── 1 · Prova social ────────────────────────────────────────────────────
     case 1:
       return (
-        <Screen>
-          <InterstitialBody
-            kicker="Você está em boa companhia"
-            image={{ src: hero, alt: "Orquídeas floridas da estufa Orquídea Garden" }}
-          >
-            <p>
-              Mais de <strong>{d.ageNumber} pessoas na {d.ageLabel}</strong> já receberam mudas da
-              Orquídea Garden em casa — e hoje têm varandas que florescem o ano todo
-            </p>
-          </InterstitialBody>
-          <div className="mt-6">
-            <p className="text-center text-[10px] font-bold uppercase tracking-[0.22em] text-ink/35">
-              Falam sobre cultivo de orquídeas em
-            </p>
-            <div className="mt-2 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 opacity-45">
-              {["Casa e Jardim", "Globo Rural", "Revista Natureza", "Viva Decora"].map((m) => (
-                <span key={m} className="font-display text-[13px] font-semibold text-ink">
-                  {m}
-                </span>
-              ))}
-            </div>
-          </div>
-          <CTA onClick={next}>Continuar</CTA>
-        </Screen>
-      );
-
-    // ── 2 · Experiência ─────────────────────────────────────────────────────
-    case 2:
-      return (
         <>
           {header}
           <SingleQuestion
@@ -173,8 +144,8 @@ export default function App() {
         </>
       );
 
-    // ── 3 · Objetivo principal ──────────────────────────────────────────────
-    case 3:
+    // ── 2 · Objetivo principal ──────────────────────────────────────────────
+    case 2:
       return (
         <>
           {header}
@@ -192,28 +163,7 @@ export default function App() {
         </>
       );
 
-    // ── 4 · Perdas ──────────────────────────────────────────────────────────
-    case 4:
-      return (
-        <>
-          {header}
-          <SingleQuestion
-            title="Quantas orquídeas você já perdeu?"
-            sub="Seja sincera(o) — isso nos ajuda a calibrar seu guia"
-            options={[
-              { value: "nunca", label: "Nenhuma", icon: "😌" },
-              { value: "1-2", label: "1 ou 2", icon: "🍂" },
-              { value: "3-5", label: "De 3 a 5", icon: "🥀" },
-              { value: "conta", label: "Perdi a conta…", icon: "😅" },
-            ]}
-            value={answers.lost as string}
-            onAnswer={answer("lost")}
-          />
-        </>
-      );
-
-    // ── 5 · Tipo de moradia ─────────────────────────────────────────────────
-    case 5:
+        case 3:
       return (
         <>
           {header}
@@ -231,8 +181,8 @@ export default function App() {
         </>
       );
 
-    // ── 6 · Luz ─────────────────────────────────────────────────────────────
-    case 6:
+    // ── 4 · Luz ─────────────────────────────────────────────────────────────
+    case 4:
       return (
         <>
           {header}
@@ -251,46 +201,7 @@ export default function App() {
         </>
       );
 
-    // ── 7 · Rega ────────────────────────────────────────────────────────────
-    case 7:
-      return (
-        <>
-          {header}
-          <SingleQuestion
-            title="Com que frequência você regaria suas plantas?"
-            options={[
-              { value: "todo-dia", label: "Todo dia — adoro cuidar", icon: "💧" },
-              { value: "2-3x", label: "2 a 3 vezes por semana", icon: "🚿" },
-              { value: "1x-semana", label: "1 vez por semana", icon: "🗓️" },
-              { value: "quando-seco", label: "Quando lembro / está seco", icon: "🌵" },
-            ]}
-            value={answers.watering as string}
-            onAnswer={answer("watering")}
-          />
-        </>
-      );
-
-    // ── 8 · Substrato ───────────────────────────────────────────────────────
-    case 8:
-      return (
-        <>
-          {header}
-          <SingleQuestion
-            title="Se já plantou orquídeas, em que substrato?"
-            options={[
-              { value: "terra", label: "Terra comum de jardim", icon: "🟤" },
-              { value: "casca", label: "Casca de pinus / carvão", icon: "🪵" },
-              { value: "fibra", label: "Fibra de coco / esfagno", icon: "🥥" },
-              { value: "nao-sei", label: "Não sei / nunca plantei", icon: "🤷" },
-            ]}
-            value={answers.substrate as string}
-            onAnswer={answer("substrate")}
-          />
-        </>
-      );
-
-    // ── 9 · Espécies favoritas (4 opções) ───────────────────────────────────
-    case 9:
+        case 5:
       return (
         <>
           {header}
@@ -310,27 +221,7 @@ export default function App() {
         </>
       );
 
-    // ── 10 · Clima ──────────────────────────────────────────────────────────
-    case 10:
-      return (
-        <>
-          {header}
-          <SingleQuestion
-            title="Como é o clima da sua região?"
-            options={[
-              { value: "quente", label: "Quente na maior parte do ano", icon: "🌞" },
-              { value: "ameno", label: "Ameno, com estações definidas", icon: "🍃" },
-              { value: "frio", label: "Frio no inverno", icon: "🧣" },
-              { value: "seco", label: "Seco, com pouca umidade", icon: "🏜️" },
-            ]}
-            value={answers.climate as string}
-            onAnswer={answer("climate")}
-          />
-        </>
-      );
-
-    // ── 11 · Frustrações ────────────────────────────────────────────────────
-    case 11:
+        case 6:
       return (
         <>
           {header}
@@ -353,58 +244,11 @@ export default function App() {
       );
 
     // ── 12 · Loading de análise ─────────────────────────────────────────────
-    case 12:
+    case 7:
       return <AnalyzingLoading onDone={next} />;
 
     // ── 13 · Caminho da primeira floração ───────────────────────────────────
-    case 13:
-      return <BloomTimeline d={d} onNext={next} />;
-
-    // ── 14 · Estufa real (autoridade com fotos reais) ───────────────────────
-    case 14:
-      return (
-        <Screen>
-          <div className="mb-5 mt-4 animate-fade-up">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-sage-dark">
-              Direto da nossa estufa
-            </p>
-            <h1 className="mt-1 font-display text-[26px] font-semibold leading-tight text-ink">
-              Estufa real, mudas reais, flores reais
-            </h1>
-            <p className="mt-2 text-[14px] text-ink/60">
-              Quem seleciona o seu mix cultiva orquídeas todos os dias — nada de estoque de
-              terceiros
-            </p>
-          </div>
-          <div className="space-y-3">
-            {[
-              { img: estufa1, title: "Nossa estufa", desc: "Mudas cultivadas e selecionadas pela nossa equipe" },
-              { img: estufa2, title: "Seleção uma a uma", desc: "Cada muda é inspecionada antes de viajar" },
-              { img: estufa3, title: "Floração real", desc: "Variedades que florescem em casa, sem estufa profissional" },
-            ].map((c, i) => (
-              <div
-                key={c.title}
-                style={{ animationDelay: `${i * 110}ms` }}
-                className="flex animate-fade-up items-center gap-4 rounded-2xl border border-ink/10 bg-white p-3.5"
-              >
-                <img src={c.img} alt={c.title} loading="lazy" decoding="async" className="size-16 shrink-0 rounded-xl object-cover" />
-                <div>
-                  <p className="text-[15px] font-bold text-ink">{c.title}</p>
-                  <p className="text-[13px] text-ink/55">{c.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <CTA onClick={next}>Continuar</CTA>
-        </Screen>
-      );
-
-    // ── 15 · Montando o kit ─────────────────────────────────────────────────
-    case 15:
-      return <PlanLoading onDone={next} />;
-
-    // ── 16 · Nome ───────────────────────────────────────────────────────────
-    case 16:
+    case 8:
       return (
         <NameScreen
           value={answers.name as string}
@@ -416,11 +260,11 @@ export default function App() {
       );
 
     // ── 17 · Kit reservado ──────────────────────────────────────────────────
-    case 17:
+    case 9:
       return <KitReadyScreen d={d} onNext={next} />;
 
-    // ── 18 · Raspadinha → checkout ──────────────────────────────────────────
-    case 18:
+    // ── 10 · Raspadinha → checkout ──────────────────────────────────────────
+    case 10:
       return (
         <ScratchScreen
           onDone={() => {

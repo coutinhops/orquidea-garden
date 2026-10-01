@@ -66,10 +66,10 @@ export function joinPt(items: string[]): string {
 // ─── Matriz de diagnósticos do orquidófilo (ordem = prioridade) ──────────────
 
 export function resolveDiagnosis(a: Answers): Diagnosis {
-  const watering = a.watering as string;
+  const watering = (a.watering as string) || "quando-seco";
   const light = a.light as string;
-  const substrate = a.substrate as string;
-  const lost = a.lost as string;
+  const substrate = (a.substrate as string) || "nao-sei";
+  const lost = (a.lost as string) || "nunca";
 
   if (watering === "todo-dia" || watering === "2-3x") {
     return {
