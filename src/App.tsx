@@ -144,7 +144,7 @@ export default function App() {
         </>
       );
 
-    // ── 3 · Objetivo principal ──────────────────────────────────────────────
+    // ── 2 · Objetivo principal ──────────────────────────────────────────────
     case 2:
       return (
         <>
@@ -163,8 +163,7 @@ export default function App() {
         </>
       );
 
-    // ── 4 · Perdas ──────────────────────────────────────────────────────────
-    case 3:
+        case 3:
       return (
         <>
           {header}
@@ -182,7 +181,7 @@ export default function App() {
         </>
       );
 
-    // ── 6 · Luz ─────────────────────────────────────────────────────────────
+    // ── 4 · Luz ─────────────────────────────────────────────────────────────
     case 4:
       return (
         <>
@@ -202,8 +201,7 @@ export default function App() {
         </>
       );
 
-    // ── 7 · Rega ────────────────────────────────────────────────────────────
-    case 5:
+        case 5:
       return (
         <>
           {header}
@@ -223,8 +221,7 @@ export default function App() {
         </>
       );
 
-    // ── 10 · Clima ──────────────────────────────────────────────────────────
-    case 6:
+        case 6:
       return (
         <>
           {header}
@@ -266,7 +263,7 @@ export default function App() {
     case 9:
       return <KitReadyScreen d={d} onNext={next} />;
 
-    // ── 18 · Raspadinha → checkout ──────────────────────────────────────────
+    // ── 10 · Raspadinha → checkout ──────────────────────────────────────────
     case 10:
       return (
         <ScratchScreen
