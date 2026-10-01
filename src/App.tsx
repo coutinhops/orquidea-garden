@@ -5,6 +5,8 @@ import { ProgressHeader, Screen } from "@/components/bits";
 import { MultiQuestion, SingleQuestion } from "@/components/questions";
 import { AnalyzingLoading } from "@/components/special";
 import {
+  KitReadyScreen,
+  NameScreen,
   ScratchScreen,
 } from "@/components/results";
 import { Checkout } from "@/components/checkout";
