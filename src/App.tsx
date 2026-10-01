@@ -189,42 +189,6 @@ export default function App() {
       );
 
     // ── 4 · Maior desafio (consolida rega + substrato + perdas + frustrações) ─
-    case 4:
-      return (
-        <>
-          {header}
-          <SingleQuestion
-            title="Qual é o seu maior desafio no cultivo?"
-            sub="Seja sincero — isso nos ajuda a calibrar seu guia"
-            options={[
-              { value: "rega", label: "Não sei quando / quanto regar", icon: "💧" },
-              { value: "luz", label: "Minhas orquídeas não recebem luz ideal", icon: "☀️" },
-              { value: "substrato", label: "Não sei qual substrato usar", icon: "🟤" },
-              { value: "perdeu", label: "Já perdi várias plantas", icon: "🥀" },
-              { value: "iniciante", label: "Sou iniciante — não sei por onde começar", icon: "🌱" },
-            ]}
-            value={answers.frustrations as string}
-            onAnswer={(v) => {
-              save("frustrations", v);
-              // Preenche variáveis derivadas para o diagnóstico
-              const challengeMap: Record<string, { watering: string; substrate: string; lost: string }> = {
-                "rega": { watering: "quando-seco", substrate: "fibra", lost: "1-2" },
-                "luz": { watering: "2-3x", substrate: "casca", lost: "nunca" },
-                "substrato": { watering: "2-3x", substrate: "nao-sei", lost: "1-2" },
-                "perdeu": { watering: "quando-seco", substrate: "terra", lost: "3-5" },
-                "iniciante": { watering: "2-3x", substrate: "nao-sei", lost: "nunca" },
-              };
-              const mapped = challengeMap[v as string] || { watering: "2-3x", substrate: "nao-sei", lost: "nunca" };
-              save("watering", mapped.watering);
-              save("substrate", mapped.substrate);
-              save("lost", mapped.lost);
-              next();
-            }}
-          />
-        </>
-      );
-
-    // ── 5 · Espécies favoritas ──────────────────────────────────────────────
     case 5:
       return (
         <>
@@ -251,49 +215,6 @@ export default function App() {
       return <AnalyzingLoading onDone={next} />;
 
     // ── 7 · Oferta + Nome (juntos) ──────────────────────────────────────────
-    case 7:
-      return (
-        <Screen>
-          <div className="animate-fade-up text-center">
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-sage-dark">
-              Kit da Floração reservado
-            </p>
-            <h1 className="mt-2 font-display text-[24px] font-semibold leading-tight text-ink">
-              {d.name}, seu kit está pronto!
-            </h1>
-            <p className="mt-2 text-[14px] text-ink/60">
-              Baseado no seu perfil <strong>{d.diagnosisTitle}</strong>, montamos a seleção ideal
-            </p>
-          </div>
-
-          <div className="relative mx-auto mt-6 w-full max-w-[320px] overflow-hidden rounded-3xl border-2 border-dashed border-terra/50 shadow-[0_20px_50px_-20px_rgba(162,73,192,0.6)]">
-            <div className="flex aspect-[4/3] flex-col items-center justify-center bg-gradient-to-br from-terra-faint to-sage-faint px-6 text-center">
-              <p className="font-display text-5xl font-bold text-terra-dark">90%</p>
-              <p className="mt-1 text-[15px] font-bold uppercase tracking-wider text-ink">de desconto</p>
-              <p className="mt-1 text-[12.5px] text-ink/60">no seu Kit de Orquídeas</p>
-              <div className="mt-3 rounded-full border border-terra/40 bg-white px-4 py-1.5 text-[13px] font-bold tracking-wider text-terra-dark">
-                {d.promoCode}
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6 animate-fade-up">
-            <p className="text-center text-[13px] text-ink/60">Para quem vamos reservar seu kit?</p>
-            <NameScreen
-              value={answers.name as string}
-              onChange={(v) => save("name", v)}
-              onDone={() => {
-                if (answers.name) {
-                  track("name_entered", { name: answers.name });
-                  next();
-                }
-              }}
-            />
-          </div>
-        </Screen>
-      );
-
-    // ── 8 · Revelar ──────────────────────────────────────────────────────────
     case 8:
       return (
         <ScratchScreen
