@@ -66,10 +66,10 @@ export function joinPt(items: string[]): string {
 // ─── Matriz de diagnósticos do orquidófilo (ordem = prioridade) ──────────────
 
 export function resolveDiagnosis(a: Answers): Diagnosis {
-  const watering = (a.watering as string) || "quando-seco";
+  const watering = a.watering as string;
   const light = a.light as string;
   const substrate = a.substrate as string;
-  const lost = (a.lost as string) || "nunca";
+  const lost = a.lost as string;
 
   if (watering === "todo-dia" || watering === "2-3x") {
     return {
@@ -138,7 +138,6 @@ export interface Derived {
   speciesLabel: string;
   homeLabel: string;
   bloomLabel: string;
-  promoCode: string;
 }
 
 export function derive(a: Answers): Derived {
@@ -169,7 +168,6 @@ export function derive(a: Answers): Derived {
     speciesLabel: species.length ? joinPt(species) : "variedades sortidas",
     homeLabel: HOME_LABELS[(a.homeType as string) ?? "ap-varanda"] ?? HOME_LABELS["ap-varanda"],
     bloomLabel,
-    promoCode: PROMO_CODE,
   };
 }
 
