@@ -169,6 +169,7 @@ export function derive(a: Answers): Derived {
     speciesLabel: species.length ? joinPt(species) : "variedades sortidas",
     homeLabel: HOME_LABELS[(a.homeType as string) ?? "ap-varanda"] ?? HOME_LABELS["ap-varanda"],
     bloomLabel,
+    promoCode: PROMO_CODE,
   };
 }
 
