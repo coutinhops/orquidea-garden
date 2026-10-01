@@ -68,7 +68,7 @@ export function joinPt(items: string[]): string {
 export function resolveDiagnosis(a: Answers): Diagnosis {
   const watering = (a.watering as string) || "quando-seco";
   const light = a.light as string;
-  const substrate = (a.substrate as string) || "nao-sei";
+  const substrate = a.substrate as string;
   const lost = (a.lost as string) || "nunca";
 
   if (watering === "todo-dia" || watering === "2-3x") {
