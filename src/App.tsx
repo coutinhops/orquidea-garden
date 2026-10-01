@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { derive, track } from "@/lib/funnel";
 import type { Answers } from "@/lib/funnel";
-import { ProgressHeader, Screen } from "@/components/bits";
+import { CTA, InterstitialBody, ProgressHeader, Screen } from "@/components/bits";
 import { MultiQuestion, SingleQuestion } from "@/components/questions";
 import { AnalyzingLoading } from "@/components/special";
 import {
+  BloomTimeline,
   KitReadyScreen,
   NameScreen,
   ScratchScreen,
@@ -12,23 +13,23 @@ import {
 import { Checkout } from "@/components/checkout";
 import { IMG } from "@/lib/images";
 
-const { logo, age40, age50, age60, age70 } = {
+const { logo, age40, age50, age60, age70, hero } = {
   logo: IMG.logo,
   age40: IMG.age40,
   age50: IMG.age50,
   age60: IMG.age60,
   age70: IMG.age70,
+  hero: IMG.hero,
 };
 
 // ─── Seções do funil (barra de progresso) ────────────────────────────────────
-
 const SECTIONS = [
-  { name: "Seu perfil", from: 2, to: 4 },
-  { name: "Seu ambiente", from: 5, to: 8 },
-  { name: "Suas preferências", from: 9, to: 11 },
+  { name: "Seu perfil", from: 1, to: 2 },
+  { name: "Seu ambiente", from: 3, to: 4 },
+  { name: "Suas preferências", from: 5, to: 5 },
 ];
 
-const LAST_STEP = 10;
+const LAST_STEP = 8;
 
 export default function App() {
   const [step, setStep] = useState(0);
@@ -68,23 +69,21 @@ export default function App() {
 
   if (view === "checkout") return <Checkout d={d} />;
 
-  // key={step} força a remontagem completa a cada etapa — sem isso o React
-  // reutiliza o componente da pergunta anterior e o estado dela avança a próxima
   return (
     <div key={step} className="contents">
       {(() => {
         switch (step) {
-    // ── 0 · Idade ───────────────────────────────────────────────────────────
+    // ── 0 · Landing enxuta ──────────────────────────────────────────────────
     case 0:
       return (
         <Screen>
           <div className="mb-6 mt-6 animate-fade-up text-center">
             <img src={logo} alt="Orquídea Garden" fetchPriority="high" decoding="async" className="mx-auto h-24 w-auto" />
             <h1 className="mt-4 font-display text-[26px] font-semibold leading-tight text-ink">
-              Perfil do Orquidófilo
+              Descubra seu perfil de orquidófilo
             </h1>
-            <p className="mt-1 text-[13px] font-bold uppercase tracking-[0.22em] text-ink/50">
-              Escolha a sua faixa de idade
+            <p className="mt-2 text-[14px] text-ink/60">
+              Responda 5 perguntas rápidas e descubra o kit perfeito para você — com até <strong>90% de desconto</strong>
             </p>
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -116,12 +115,12 @@ export default function App() {
           <p className="mt-6 text-center text-[11px] leading-relaxed text-ink/40">
             Ao continuar, você concorda com nossos{" "}
             <span className="underline">Termos de Serviço</span> |{" "}
-            <span className="underline">Política de Privacidade</span> — Leia antes de continuar
+            <span className="underline">Política de Privacidade</span>
           </p>
         </Screen>
       );
 
-    // ── 1 · Prova social ────────────────────────────────────────────────────
+    // ── 1 · Experiência ─────────────────────────────────────────────────────
     case 1:
       return (
         <>
@@ -145,7 +144,7 @@ export default function App() {
         <>
           {header}
           <SingleQuestion
-            title="Qual é o seu principal objetivo com orquídeas?"
+            title="Qual é o seu principal objetivo?"
             options={[
               { value: "flor", label: "Ter florações o ano todo", icon: "🌸" },
               { value: "parar", label: "Parar de perder plantas", icon: "🛡️" },
@@ -158,45 +157,39 @@ export default function App() {
         </>
       );
 
-        case 3:
+    // ── 3 · Ambiente (casa + luz juntos) ────────────────────────────────────
+    case 3:
       return (
         <>
           {header}
           <SingleQuestion
             title="Onde as suas orquídeas vão morar?"
+            sub="Escolha o ambiente que mais se parece com o seu"
             options={[
-              { value: "casa-quintal", label: "Casa com quintal", icon: "🏡" },
+              { value: "casa-quintal", label: "Casa com quintal ensolarado", icon: "🏡" },
               { value: "ap-varanda", label: "Apartamento com varanda", icon: "🏢" },
-              { value: "ap-janela", label: "Apartamento — perto das janelas", icon: "🪟" },
+              { value: "ap-janela", label: "Apartamento — luz das janelas", icon: "🪟" },
               { value: "casa-estufa", label: "Casa com estufa ou jardim de inverno", icon: "🌿" },
             ]}
             value={answers.homeType as string}
-            onAnswer={answer("homeType")}
+            onAnswer={(v) => {
+              save("homeType", v);
+              // Define luz automaticamente baseado no ambiente
+              const lightMap: Record<string, string> = {
+                "casa-quintal": "muita",
+                "ap-varanda": "media",
+                "ap-janela": "pouca",
+                "casa-estufa": "media",
+              };
+              save("light", lightMap[v as string] || "media");
+              next();
+            }}
           />
         </>
       );
 
-    // ── 4 · Luz ─────────────────────────────────────────────────────────────
-    case 4:
-      return (
-        <>
-          {header}
-          <SingleQuestion
-            title="Como é a luz do lugar onde elas vão ficar?"
-            sub="Orquídeas amam luz indireta forte — sem sol direto nas folhas"
-            options={[
-              { value: "muita", label: "Muita luz o dia todo", icon: "☀️" },
-              { value: "media", label: "Boa luz por algumas horas", icon: "⛅" },
-              { value: "pouca", label: "Pouca luz natural", icon: "🌥️" },
-              { value: "nao-sei", label: "Não sei dizer", icon: "🤔" },
-            ]}
-            value={answers.light as string}
-            onAnswer={answer("light")}
-          />
-        </>
-      );
-
-        case 5:
+    // ── 4 · Maior desafio (consolida rega + substrato + perdas + frustrações) ─
+    case 5:
       return (
         <>
           {header}
@@ -204,66 +197,29 @@ export default function App() {
             title="Quais espécies você mais gostaria de ter?"
             sub="Escolha todas que encantam você — a estufa monta o mix"
             options={[
-              { value: "phalaenopsis", label: "Phalaenopsis", desc: "A clássica — floresce 2x ao ano", icon: "🦋" },
-              { value: "cattleya", label: "Cattleya", desc: "Rainha das orquídeas — flores perfumadas", icon: "👑" },
-              { value: "dendrobium", label: "Dendrobium", desc: "Cascatas de flores delicadas", icon: "🎋" },
-              { value: "todas", label: "Mix surpresa da estufa", desc: "Variedades escolhidas para o seu perfil", icon: "🎁" },
+              { value: "phalaenopsis", label: "Phalaenopsis (a clássica de casa)", icon: "🌸" },
+              { value: "cattleya", label: "Cattleya (flor grande e perfumada)", icon: "🌺" },
+              { value: "dendrobium", label: "Dendrobium (colorida e fácil)", icon: "🌼" },
+              { value: "oncidium", label: "Oncidium (cascata de flores)", icon: "🌾" },
+              { value: "vanda", label: "Vanda (exótica e vistosa)", icon: "🪷" },
+              { value: "todas", label: "Quero conhecer todas as variedades!", icon: "🎁" },
             ]}
-            exclusive={["todas"]}
             value={answers.species as string[]}
             onAnswer={answer("species")}
           />
         </>
       );
 
-        case 6:
-      return (
-        <>
-          {header}
-          <MultiQuestion
-            title="O que mais frustra você no cultivo de plantas?"
-            options={[
-              { value: "folhas-amarelas", label: "Folhas amarelando do nada", icon: "🟡" },
-              { value: "raizes-podres", label: "Raízes apodrecendo", icon: "🥀" },
-              { value: "nunca-floresce", label: "Planta bonita, mas nunca floresce", icon: "🍃" },
-              { value: "pragas", label: "Pragas e cochonilhas", icon: "🐛" },
-              { value: "floricultura", label: "Flor da loja murcha em semanas", icon: "🏪" },
-              { value: "nada", label: "Nenhuma dessas", icon: "😌" },
-            ]}
-            exclusive={["nada"]}
-            disclaimer="Seu guia digital inclui um capítulo de solução para cada item selecionado."
-            value={answers.frustrations as string[]}
-            onAnswer={answer("frustrations")}
-          />
-        </>
-      );
-
-    // ── 12 · Loading de análise ─────────────────────────────────────────────
-    case 7:
+    // ── 6 · Loading único ────────────────────────────────────────────────────
+    case 6:
       return <AnalyzingLoading onDone={next} />;
 
-    // ── 13 · Caminho da primeira floração ───────────────────────────────────
+    // ── 7 · Oferta + Nome (juntos) ──────────────────────────────────────────
     case 8:
-      return (
-        <NameScreen
-          value={answers.name as string}
-          onNext={(name) => {
-            save("name", name);
-            next();
-          }}
-        />
-      );
-
-    // ── 17 · Kit reservado ──────────────────────────────────────────────────
-    case 9:
-      return <KitReadyScreen d={d} onNext={next} />;
-
-    // ── 10 · Raspadinha → checkout ──────────────────────────────────────────
-    case 10:
       return (
         <ScratchScreen
           onDone={() => {
-            track("quiz_completed");
+            track("scratch_done", { code: d.promoCode });
             setView("checkout");
           }}
         />
