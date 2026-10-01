@@ -138,6 +138,7 @@ export interface Derived {
   speciesLabel: string;
   homeLabel: string;
   bloomLabel: string;
+  promoCode: string;
 }
 
 export function derive(a: Answers): Derived {
