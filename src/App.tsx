@@ -192,6 +192,26 @@ export default function App() {
         </>
       );
 
+    // ── 4 · Perdas ──────────────────────────────────────────────────────────
+    case 4:
+      return (
+        <>
+          {header}
+          <SingleQuestion
+            title="Quantas orquídeas você já perdeu?"
+            sub="Seja sincera(o) — isso nos ajuda a calibrar seu guia"
+            options={[
+              { value: "nunca", label: "Nenhuma", icon: "😌" },
+              { value: "1-2", label: "1 ou 2", icon: "🍂" },
+              { value: "3-5", label: "De 3 a 5", icon: "🥀" },
+              { value: "conta", label: "Perdi a conta…", icon: "😅" },
+            ]}
+            value={answers.lost as string}
+            onAnswer={answer("lost")}
+          />
+        </>
+      );
+
     // ── 5 · Tipo de moradia ─────────────────────────────────────────────────
     case 5:
       return (
@@ -227,6 +247,25 @@ export default function App() {
             ]}
             value={answers.light as string}
             onAnswer={answer("light")}
+          />
+        </>
+      );
+
+    // ── 7 · Rega ────────────────────────────────────────────────────────────
+    case 7:
+      return (
+        <>
+          {header}
+          <SingleQuestion
+            title="Com que frequência você regaria suas plantas?"
+            options={[
+              { value: "todo-dia", label: "Todo dia — adoro cuidar", icon: "💧" },
+              { value: "2-3x", label: "2 a 3 vezes por semana", icon: "🚿" },
+              { value: "1x-semana", label: "1 vez por semana", icon: "🗓️" },
+              { value: "quando-seco", label: "Quando lembro / está seco", icon: "🌵" },
+            ]}
+            value={answers.watering as string}
+            onAnswer={answer("watering")}
           />
         </>
       );
@@ -267,6 +306,25 @@ export default function App() {
             exclusive={["todas"]}
             value={answers.species as string[]}
             onAnswer={answer("species")}
+          />
+        </>
+      );
+
+    // ── 10 · Clima ──────────────────────────────────────────────────────────
+    case 10:
+      return (
+        <>
+          {header}
+          <SingleQuestion
+            title="Como é o clima da sua região?"
+            options={[
+              { value: "quente", label: "Quente na maior parte do ano", icon: "🌞" },
+              { value: "ameno", label: "Ameno, com estações definidas", icon: "🍃" },
+              { value: "frio", label: "Frio no inverno", icon: "🧣" },
+              { value: "seco", label: "Seco, com pouca umidade", icon: "🏜️" },
+            ]}
+            value={answers.climate as string}
+            onAnswer={answer("climate")}
           />
         </>
       );
