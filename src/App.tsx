@@ -1,25 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
 import { derive, track } from "@/lib/funnel";
 import type { Answers } from "@/lib/funnel";
-import { CTA, InterstitialBody, ProgressHeader, Screen } from "@/components/bits";
+import { ProgressHeader, Screen } from "@/components/bits";
 import { MultiQuestion, SingleQuestion } from "@/components/questions";
 import { AnalyzingLoading } from "@/components/special";
-import {
-  BloomTimeline,
-  KitReadyScreen,
-  NameScreen,
-  ScratchScreen,
-} from "@/components/results";
+import { ScratchScreen } from "@/components/results";
 import { Checkout } from "@/components/checkout";
 import { IMG } from "@/lib/images";
 
-const { logo, age40, age50, age60, age70, hero } = {
+const { logo, age40, age50, age60, age70 } = {
   logo: IMG.logo,
   age40: IMG.age40,
   age50: IMG.age50,
   age60: IMG.age60,
   age70: IMG.age70,
-  hero: IMG.hero,
 };
 
 // ─── Seções do funil (barra de progresso) ────────────────────────────────────
@@ -219,7 +213,7 @@ export default function App() {
       return (
         <ScratchScreen
           onDone={() => {
-            track("scratch_done", { code: d.promoCode });
+            track("scratch_done");
             setView("checkout");
           }}
         />
