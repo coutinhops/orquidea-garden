@@ -3,7 +3,7 @@ import { Check, ShieldCheck, Truck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BRAND, PROMO_CODE, track } from "@/lib/funnel";
 import type { Derived } from "@/lib/funnel";
-import { Stars, useCountdown } from "./bits";
+import { Stars, useCampaignCountdown, useCountdown, useStockLeft } from "./bits";
 import { IMG } from "@/lib/images";
 
 const kitImg = IMG.kit10;
@@ -129,12 +129,14 @@ const FAQS = [
   },
   {
     q: "Por que o desconto de 90%?",
-    a: "É o Festival da Floração de Inverno: celebramos a safra de inverno da estufa e liberamos o lote final de mudas da temporada com 90% OFF. Quando o lote acaba, o preço volta ao normal.",
+    a: "É a Black Friday Orquídea Garden: o maior desconto do ano da estufa, válido somente durante a semana da Black Friday e enquanto durar o lote promocional. Quando a campanha termina, o preço volta ao normal.",
   },
 ];
 
 export function Checkout({ d }: { d: Derived }) {
   const countdown = useCountdown(9);
+  const campaign = useCampaignCountdown();
+  const { left: stock, soldPct } = useStockLeft();
   const [kit, setKit] = useState<Kit>(KITS[1]);
   const [faqOpen, setFaqOpen] = useState<number | null>(null);
 
@@ -160,7 +162,7 @@ export function Checkout({ d }: { d: Derived }) {
               <span className="relative inline-flex size-2 rounded-full bg-[#A6455E]" />
             </span>
             <p className="text-[12px] font-bold text-[#8A3550]">
-              90% OFF reservado: {countdown}
+              Black Friday · 90% OFF reservado: {countdown}
             </p>
           </div>
         </div>
@@ -170,10 +172,10 @@ export function Checkout({ d }: { d: Derived }) {
         {/* J1 — Hero */}
         <section className="pt-8 text-center">
           <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-sage-dark">
-            Festival da Floração de Inverno
+            Black Friday Orquídea Garden
           </p>
           <h1 className="mt-2 font-display text-3xl font-semibold leading-tight text-ink">
-            {firstName ? `${firstName}, seu` : "Seu"} Kit da Floração está pronto!
+            {firstName ? `${firstName}, seu` : "Seu"} Kit Black Friday está pronto!
           </h1>
           <div className="mt-6 overflow-hidden rounded-3xl border border-ink/10 bg-white">
             <img src={kitImg} alt="Kit com mudas de orquídeas" loading="lazy" decoding="async" className="w-full object-cover" />
@@ -210,12 +212,27 @@ export function Checkout({ d }: { d: Derived }) {
           <div className="mb-4 flex items-center justify-center gap-2 rounded-full border border-sage/30 bg-sage-faint px-4 py-2">
             <Check className="size-4 text-sage-dark" strokeWidth={3} />
             <p className="text-[12.5px] font-bold text-sage-dark">
-              Cupom do Festival aplicado: <span className="tracking-wider">{PROMO_CODE}</span>
+              Cupom Black Friday aplicado: <span className="tracking-wider">{PROMO_CODE}</span>
             </p>
           </div>
           <h2 className="mb-4 text-center font-display text-2xl font-semibold text-ink">
             Escolha o seu kit
           </h2>
+          <div className="mb-4 rounded-2xl border border-ink/10 bg-white p-4">
+            <div className="flex items-center justify-between text-[12px] font-bold">
+              <span className="text-ink/60">Lote Black Friday</span>
+              <span className="text-[#8A3550]">Restam {stock} kits</span>
+            </div>
+            <div className="mt-2 h-2 overflow-hidden rounded-full bg-ink/10">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-[#A6455E] to-terra transition-all duration-1000"
+                style={{ width: `${soldPct}%` }}
+              />
+            </div>
+            <p className="mt-1.5 text-[11px] text-ink/45">
+              {soldPct}% do lote vendido — o preço volta ao normal quando acabar
+            </p>
+          </div>
           <KitCards selected={kit} onSelect={setKit} />
           <p className="mt-3 flex items-center justify-center gap-1.5 text-[12px] font-semibold text-ink/55">
             <Truck className="size-4 text-sage" />
@@ -373,10 +390,10 @@ export function Checkout({ d }: { d: Derived }) {
         {/* J10 — Repetição da oferta */}
         <section className="mt-12">
           <h2 className="mb-1 text-center font-display text-2xl font-semibold text-ink">
-            Últimas mudas da safra de inverno!
+            Últimas horas da Black Friday!
           </h2>
           <p className="mb-4 text-center text-[13px] font-semibold text-[#8A3550]">
-            Seu 90% OFF expira em {countdown}
+            Seu 90% OFF expira em {campaign}
           </p>
           <KitCards selected={kit} onSelect={setKit} />
           <button
@@ -421,4 +438,3 @@ export function Checkout({ d }: { d: Derived }) {
     </div>
   );
 }
-// rebuild trigger
