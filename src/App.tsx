@@ -19,11 +19,11 @@ const { logo, age40, age50, age60, age70 } = {
 // ─── Seções do funil (barra de progresso) ────────────────────────────────────
 const SECTIONS = [
   { name: "Seu perfil", from: 1, to: 2 },
-  { name: "Seu ambiente", from: 3, to: 4 },
-  { name: "Suas preferências", from: 5, to: 5 },
+  { name: "Seu ambiente", from: 3, to: 3 },
+  { name: "Suas preferências", from: 4, to: 4 },
 ];
 
-const LAST_STEP = 8;
+const LAST_STEP = 6;
 
 export default function App() {
   const [step, setStep] = useState(0);
@@ -185,8 +185,8 @@ export default function App() {
         </>
       );
 
-    // ── 4 · Maior desafio (consolida rega + substrato + perdas + frustrações) ─
-    case 5:
+    // ── 4 · Espécies desejadas (múltipla escolha) ────────────────────────────
+    case 4:
       return (
         <>
           {header}
@@ -207,12 +207,12 @@ export default function App() {
         </>
       );
 
-    // ── 6 · Loading único ────────────────────────────────────────────────────
-    case 6:
+    // ── 5 · Loading único ────────────────────────────────────────────────────
+    case 5:
       return <AnalyzingLoading onDone={next} />;
 
-    // ── 7 · Oferta + Nome (juntos) ──────────────────────────────────────────
-    case 8:
+    // ── 6 · Raspadinha da oferta → checkout ──────────────────────────────────
+    case 6:
       return (
         <ScratchScreen
           onDone={() => {
