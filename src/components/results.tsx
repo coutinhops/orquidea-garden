@@ -202,7 +202,7 @@ export function KitReadyScreen({ d, onNext }: { d: Derived; onNext: () => void }
     <Screen className="justify-center">
       <div className="animate-fade-up text-center">
         <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-sage-dark">
-          Festival da Floração de Inverno
+          Black Friday Orquídea Garden
         </p>
         <h1 className="mt-2 font-display text-[26px] font-semibold leading-tight text-ink">
           {d.name ? `${d.name}, seu` : "Seu"} Kit da Floração está reservado!
@@ -281,10 +281,10 @@ export function ScratchScreen({ onDone }: { onDone: () => void }) {
     <Screen className="justify-center">
       <div className="animate-fade-up text-center">
         <h1 className="font-display text-[26px] font-semibold leading-tight text-ink">
-          Clique para revelar seu presente do Festival!
+          Clique para revelar seu presente da Black Friday!
         </h1>
         <p className="mt-2 text-[14px] text-ink/55">
-          A estufa preparou uma surpresa para celebrar a safra de inverno com você
+          A estufa preparou uma surpresa para celebrar a Black Friday com você
         </p>
       </div>
 
