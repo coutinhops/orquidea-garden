@@ -255,7 +255,7 @@ export function Silhouette({ variant, className }: { variant: number; className?
            L ${50 - 14} 108 C ${50 - 16} 130, ${50 - 15} 160, ${50 - 14} 188
            L ${50 - 6} 188 C ${50 - 8} 160, ${50 - 9} 130, ${50 - 7} 108
            L ${50 + 7} 108 C ${50 + 9} 130, ${50 + 8} 160, ${50 + 6} 188
-           L ${50 + 14} 188 C ${50 + 15} 160, ${50 + 16} 130, ${50 + 14} 108
+           L ${50 + 14} 108 C ${50 + 15} 160, ${50 + 16} 130, ${50 + 14} 108
            L ${50 + hp - 4} 108 C ${50 + hp + 2} 96, ${50 + hp} 82, ${50 + w - 2} 66
            C ${50 + w + 4} 52, ${50 + w} 36, 50 34 Z`}
       />
@@ -307,4 +307,47 @@ export function useCountdown(minutes = 9) {
   const mm = String(Math.floor(left / 60)).padStart(2, "0");
   const ss = String(left % 60).padStart(2, "0");
   return `${mm}:${ss}`;
+}
+
+// ─── Countdown até data fixa (fim da campanha) ───────────────────────────────
+
+export function useCampaignCountdown(targetIso = "2026-11-30T23:59:59-03:00") {
+  const [left, setLeft] = useState(0);
+  useEffect(() => {
+    const target = new Date(targetIso).getTime();
+    const tick = () => setLeft(Math.max(0, Math.floor((target - Date.now()) / 1000)));
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [targetIso]);
+  const dd = Math.floor(left / 86400);
+  const hh = String(Math.floor((left % 86400) / 3600)).padStart(2, "0");
+  const mm = String(Math.floor((left % 3600) / 60)).padStart(2, "0");
+  const ss = String(left % 60).padStart(2, "0");
+  return dd > 0 ? `${dd}d ${hh}:${mm}:${ss}` : `${hh}:${mm}:${ss}`;
+}
+
+// ─── Estoque do lote (escassez) ──────────────────────────────────────────────
+
+export function useStockLeft(total = 200, initial = 37, floor = 9) {
+  const [left, setLeft] = useState(initial);
+  useEffect(() => {
+    const KEY = "bf-stock-left";
+    let v = Number(localStorage.getItem(KEY));
+    if (!v || v > initial) {
+      v = initial;
+      localStorage.setItem(KEY, String(v));
+    }
+    setLeft(v);
+    const id = setInterval(() => {
+      setLeft((c) => {
+        const next = c > floor ? c - 1 : c;
+        localStorage.setItem(KEY, String(next));
+        return next;
+      });
+    }, 40000 + Math.random() * 50000);
+    return () => clearInterval(id);
+  }, [initial, floor]);
+  const soldPct = Math.min(97, Math.round(((total - left) / total) * 100));
+  return { left, soldPct };
 }
