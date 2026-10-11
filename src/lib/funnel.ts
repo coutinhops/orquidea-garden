@@ -171,10 +171,17 @@ export function derive(a: Answers): Derived {
   };
 }
 
-// ─── Tracking (leve, client-side) ────────────────────────────────────────────
+// ─── Tracking (client-side, envia para o dataLayer do GTM) ───────────────────
 
 export function track(event: string, data?: Record<string, unknown>) {
   console.debug(`[track] ${event}`, data ?? {});
+  try {
+    const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
+    w.dataLayer = w.dataLayer || [];
+    w.dataLayer.push({ event, ...(data ?? {}) });
+  } catch {
+    /* noop */
+  }
 }
 
 export function vibrate(ms = 12) {
@@ -185,5 +192,5 @@ export function vibrate(ms = 12) {
   }
 }
 
-export const PROMO_CODE = "INVERNO90";
+export const PROMO_CODE = "BLACK90";
 export const BRAND = "Orquídea Garden";
