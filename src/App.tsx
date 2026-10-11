@@ -72,12 +72,15 @@ export default function App() {
       return (
         <Screen>
           <div className="mb-6 mt-6 animate-fade-up text-center">
-            <img src={logo} alt="Orquídea Garden" fetchPriority="high" decoding="async" className="mx-auto h-24 w-auto" />
+            <span className="inline-block rounded-full bg-ink px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-cream">
+              Black Friday · até 90% OFF
+            </span>
+            <img src={logo} alt="Orquídea Garden" fetchPriority="high" decoding="async" className="mx-auto mt-4 h-24 w-auto" />
             <h1 className="mt-4 font-display text-[26px] font-semibold leading-tight text-ink">
               Descubra seu perfil de orquidófilo
             </h1>
             <p className="mt-2 text-[14px] text-ink/60">
-              Responda 5 perguntas rápidas e descubra o kit perfeito para você — com até <strong>90% de desconto</strong>
+              Responda 5 perguntas rápidas e descubra o kit perfeito para você — com até <strong>90% de desconto na Black Friday</strong>
             </p>
           </div>
           <div className="grid grid-cols-2 gap-3">
